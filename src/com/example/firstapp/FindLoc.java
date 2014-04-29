@@ -29,6 +29,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -40,6 +41,7 @@ public class FindLoc extends android.support.v4.app.FragmentActivity implements 
 GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, OnMyLocationChangeListener  {
 //	TextView mTextview;
 	GoogleMap map;
+	Location loc;
 	//Location currentLocation;
 	//LocationClient locClient;
 //	@SuppressLint("NewApi")
@@ -57,10 +59,10 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, OnMyLocat
 	//	locationManager.requestLocationUpdates(
 	//	     LocationManager.NETWORK_PROVIDER, 1000, 1000, this);
 		//LatLng sydney = new LatLng(-33.867, 151.206);
-
+		//loc = new Location(LOCATION_SERVICE);
         map.setMyLocationEnabled(true);
         map.setOnMyLocationChangeListener(this);
-
+       
      /*   map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
 
         map.addMarker(new MarkerOptions()
@@ -154,8 +156,11 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, OnMyLocat
 	@Override
 	public void onMyLocationChange(Location location) {
 		// TODO Auto-generated method stub
+		loc = new Location(location);
 		double latitude=location.getLatitude();
 		double longitude=location.getLongitude();
+		loc.setLatitude(latitude);
+		loc.setLongitude(longitude);
 		LatLng latLng=new LatLng(latitude,longitude);
 		map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 		map.animateCamera(CameraUpdateFactory.zoomTo(15));
@@ -163,6 +168,64 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, OnMyLocat
         .title("MyLoc")
         .snippet("I am here!!")
         .position(latLng));
+		isShoppingClicked();
+		isRestaurantClicked();
+		isMovieClicked();
+		//tvLocation.setText("Latitude:"+latitude+", Longitude:"+longitude);
+	}
+	
+	public void isRestaurantClicked() {
+		Location resLoc = new Location(loc);
+		for(double i = 0.0010; i<0.0200; i+=0.0030)
+		{
+			resLoc.setLatitude(loc.getLatitude()+i);
+			markLocation(resLoc,50);
+		}
+		
+	}
+	
+public void isShoppingClicked() {
+	Location resLoc = new Location(loc);
+	for(double i = 0.0010; i<0.02; i+=0.0030)
+	{
+		resLoc.setLongitude(loc.getLongitude()+i);
+		markLocation(resLoc,100);
+	}
+	}
+
+public void isMovieClicked() {
+	Location resLoc = new Location(loc);
+	for(double i = 0.0010; i<0.0200; i+=0.0030)
+	{
+		resLoc.setLatitude(loc.getLatitude()+i);
+		resLoc.setLongitude(loc.getLongitude()+i);
+		markLocation(resLoc,150);
+	}
+}
+	public void markLocation(Location location, int colorValue) {
+
+		// TODO Auto-generated method stub
+		//String title="";
+		String title1;
+		if(colorValue == 50)
+			title1 = "Restaurant";
+		else if(colorValue == 100)
+			title1 = "Shopping";
+		else if(colorValue == 150)
+			title1 = "Movie";
+		else
+			title1 = "Anonymous";
+		double latitude=location.getLatitude();
+		double longitude=location.getLongitude();
+		LatLng latLng=new LatLng(latitude,longitude);
+		//map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+		//map.animateCamera(CameraUpdateFactory.zoomTo(15));
+		map.addMarker(new MarkerOptions()
+        .title(title1)
+        .snippet("Nearby place")
+        .position(latLng)
+        .icon(BitmapDescriptorFactory.defaultMarker(colorValue)));
+		 
 		//tvLocation.setText("Latitude:"+latitude+", Longitude:"+longitude);
 	}
 
