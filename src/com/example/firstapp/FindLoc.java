@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.*;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMyLocationChangeListener;
 import com.google.android.gms.maps.model.*;
 
@@ -38,10 +40,18 @@ import android.os.Bundle;
 
 //@SuppressLint("NewApi")
 public class FindLoc extends android.support.v4.app.FragmentActivity implements GooglePlayServicesClient.ConnectionCallbacks,
-GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, OnMyLocationChangeListener  {
+GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, OnMyLocationChangeListener, OnMarkerClickListener  {
 //	TextView mTextview;
 	GoogleMap map;
 	Location loc;
+	protected LocationManager locationManager;
+	protected LocationListener locationListener;
+	protected Context context;
+	TextView txtLat;
+	String lat;
+	String provider;
+	protected boolean gps_enabled,network_enabled;
+	boolean isLocCheck = true;
 	//Location currentLocation;
 	//LocationClient locClient;
 //	@SuppressLint("NewApi")
@@ -51,6 +61,10 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, OnMyLocat
 		setContentView(R.layout.activity_find_loc);
 		map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                 .getMap();
+	//	locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+	//	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+	//	LatLng latLng1=new LatLng(locationManager.,longitude);
+	//	map.moveCamera(CameraUpdateFactory.newLatLng(latLng1));
 		//locClient = new LocationClient(this, this, this);
 		//currentLocation = locClient.getLastLocation();
 	//	LatLng myLoc = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
@@ -61,7 +75,10 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, OnMyLocat
 		//LatLng sydney = new LatLng(-33.867, 151.206);
 		//loc = new Location(LOCATION_SERVICE);
         map.setMyLocationEnabled(true);
+      //  map.animateCamera(CameraUpdateFactory.zoomTo(15));
         map.setOnMyLocationChangeListener(this);
+        map.setOnMarkerClickListener(this);
+     //   map.animateCamera(CameraUpdateFactory.zoomTo(15));
        
      /*   map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
 
@@ -162,8 +179,16 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, OnMyLocat
 		loc.setLatitude(latitude);
 		loc.setLongitude(longitude);
 		LatLng latLng=new LatLng(latitude,longitude);
-		map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-		map.animateCamera(CameraUpdateFactory.zoomTo(15));
+		if(isLocCheck)
+ 	   {
+ 		 //  LatLng latLng=new LatLng(loc.getLatitude(),loc.getLongitude());
+ 		   map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+ 		   map.animateCamera(CameraUpdateFactory.zoomTo(11));
+ 		   isLocCheck = false;
+ 		//   break;
+ 	   }
+	//	map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+	//	map.animateCamera(CameraUpdateFactory.zoomTo(15));
 		map.addMarker(new MarkerOptions()
         .title("MyLoc")
         .snippet("I am here!!")
@@ -220,13 +245,22 @@ public void isMovieClicked() {
 		LatLng latLng=new LatLng(latitude,longitude);
 		//map.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 		//map.animateCamera(CameraUpdateFactory.zoomTo(15));
-		map.addMarker(new MarkerOptions()
+		Marker customMarker = map.addMarker(new MarkerOptions()
         .title(title1)
         .snippet("Nearby place")
         .position(latLng)
         .icon(BitmapDescriptorFactory.defaultMarker(colorValue)));
-		 
+		 customMarker.showInfoWindow();
 		//tvLocation.setText("Latitude:"+latitude+", Longitude:"+longitude);
+	}
+
+	@Override
+	public boolean onMarkerClick(Marker marker) {
+		Log.i("GoogleMapActivity", "onMarkerClick");
+	    Toast.makeText(getApplicationContext(),
+	        "Marker Clicked: " + marker.getTitle(), Toast.LENGTH_LONG)
+	        .show();
+		return false;
 	}
 
 }
