@@ -3,19 +3,26 @@ package com.example.firstapp;
 import com.example.firstapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.os.Build;
 
 public class PlotLoc extends android.support.v4.app.FragmentActivity {
@@ -28,21 +35,35 @@ public class PlotLoc extends android.support.v4.app.FragmentActivity {
 		map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                 .getMap();
 		LatLng sydney = new LatLng(-33.867, 151.206);
-		map.setMyLocationEnabled(true);
+		
 		map.animateCamera(CameraUpdateFactory.zoomTo(15));
-	       
 	    map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
+	    
+	    MarkerOptions options = new MarkerOptions();
+    	options.title("Some marker");
+    	options.snippet("The deal has been added!");
+    	options.position(sydney);
+    	Marker marker = map.addMarker(options);
+    	
+    	map.setInfoWindowAdapter(new InfoWindowAdapter(){
 
-	        map.addMarker(new MarkerOptions()
-	                .title("Location Name")
-	                .snippet("Added Deal !!!")
-	                .position(sydney));
-		
-		
-	/*	if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
+			@Override
+			public View getInfoContents(Marker marker) {
+				View v = getLayoutInflater().inflate(R.layout.info_window_layout, null);
+				TextView title = (TextView) v.findViewById(R.id.title);
+				TextView link = (TextView) v.findViewById(R.id.link);
+				title.setText(marker.getTitle());
+				link.setText(Html.fromHtml("<a href=\"http://www.google.com\">Click Here</a>"));
+				link.setMovementMethod(LinkMovementMethod.getInstance());
+				return v;
+			}
+
+			@Override
+			public View getInfoWindow(Marker marker11) {
+				return null;
+			}
+    		
+    	});
 	}
 
 	@Override

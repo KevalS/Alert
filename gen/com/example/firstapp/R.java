@@ -1288,9 +1288,9 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f060019;
         public static final int action_menu_presenter=0x7f06001a;
         public static final int action_mode_close_button=0x7f060027;
-        public static final int action_settings=0x7f060055;
+        public static final int action_settings=0x7f060056;
         public static final int activity_chooser_view_content=0x7f060028;
-        public static final int addDealBtn=0x7f060054;
+        public static final int addDealBtn=0x7f060055;
         public static final int always=0x7f06000f;
         public static final int beginning=0x7f060014;
         public static final int btnLogin=0x7f060044;
@@ -1306,7 +1306,7 @@ containing a value of this type.
         public static final int dialog=0x7f060012;
         public static final int disableHome=0x7f06000c;
         public static final int dropdown=0x7f060013;
-        public static final int editText1=0x7f060053;
+        public static final int editText1=0x7f060054;
         public static final int edit_query=0x7f060033;
         public static final int end=0x7f060016;
         public static final int expand_activities_button=0x7f060029;
@@ -1319,6 +1319,7 @@ containing a value of this type.
         public static final int icon=0x7f06002d;
         public static final int ifRoom=0x7f06000e;
         public static final int image=0x7f06002a;
+        public static final int link=0x7f060052;
         public static final int link_to_login=0x7f060051;
         public static final int link_to_register=0x7f060045;
         public static final int listMode=0x7f060005;
@@ -1357,7 +1358,7 @@ containing a value of this type.
         public static final int tabMode=0x7f060006;
         public static final int terrain=0x7f060003;
         public static final int textView1=0x7f060041;
-        public static final int textView4=0x7f060052;
+        public static final int textView4=0x7f060053;
         public static final int title=0x7f06002e;
         public static final int top_action_bar=0x7f060023;
         public static final int up=0x7f060024;
@@ -1429,8 +1430,9 @@ containing a value of this type.
         public static final int fragment_plot_loc=0x7f030023;
         public static final int fragment_register=0x7f030024;
         public static final int header_gradient=0x7f030025;
-        public static final int popup=0x7f030026;
-        public static final int support_simple_spinner_dropdown_item=0x7f030027;
+        public static final int info_window_layout=0x7f030026;
+        public static final int popup=0x7f030027;
+        public static final int support_simple_spinner_dropdown_item=0x7f030028;
     }
     public static final class menu {
         public static final int add_deal_form=0x7f0c0000;
