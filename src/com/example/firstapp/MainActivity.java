@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Button;
 import android.widget.PopupWindow;
@@ -29,8 +30,14 @@ import android.os.Bundle;
 public class MainActivity extends ActionBarActivity {
 	public final static String PREFS_NAME = "MyPreferencesFile";
 	Button btnStartAnotherActivity;
+	StoredObject obj;
+	public MainActivity() {
+		obj = new StoredObject();
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
         final Button btnOpenPopup = (Button)findViewById(R.id.openpopup);
@@ -41,58 +48,10 @@ public class MainActivity extends ActionBarActivity {
 	   Intent intent = new Intent();//getApplicationContext(), PlotLoc.class);
   	 intent.setClassName("com.example.firstapp", "com.example.firstapp.LoginActivity");
   	 startActivity(intent);
-  /*  LayoutInflater layoutInflater 
-     = (LayoutInflater)getBaseContext()
-      .getSystemService(LAYOUT_INFLATER_SERVICE);  
-    View popupView = layoutInflater.inflate(R.layout.popup, null);  
-             final PopupWindow popupWindow = new PopupWindow(
-               popupView, 
-               LayoutParams.WRAP_CONTENT,  
-                     LayoutParams.WRAP_CONTENT);  
-             
-             Button btnDismiss = (Button)popupView.findViewById(R.id.addDealBtn);
-             btnDismiss.setOnClickListener(new Button.OnClickListener(){
-
-     @Override
-     public void onClick(View v) {
-      // TODO Auto-generated method stub
-    	 Intent intent = new Intent();//getApplicationContext(), PlotLoc.class);
-    	 intent.setClassName("com.example.firstapp", "com.example.firstapp.LoginActivity");
-    	 startActivity(intent);
-      //popupWindow.dismiss();
-     }});
-               
-             popupWindow.showAsDropDown(btnOpenPopup, 0, 30);*/
+ 
          
    }});
-	/*	final EditText check1 = (EditText)findViewById(R.id.checkBox1);
-		final EditText check2 = (EditText)findViewById(R.id.checkBox2);
-		final EditText check3 = (EditText)findViewById(R.id.checkBox3);
-		final EditText check4 = (EditText)findViewById(R.id.checkBox4);
-		Button btn = (Button)findViewById(R.id.button1);
-		btn.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-				SharedPreferences.Editor editor = settings.edit();
-				editor.putString("check1", check1.getText().toString());
-				editor.putString("check2", check2.getText().toString());
-				editor.putString("check3", check3.getText().toString());
-				editor.putString("check4", check4.getText().toString());
-				editor.commit();
-				
-				
-			}
-		});*/
-		//btnStartAnotherActivity = (Button) findViewById(R.id.button1);
-		 
-     //   btnStartAnotherActivity.setOnClickListener((OnClickListener) this);//setOnClickListener(this);
-	/*	if (savedInstanceState == null) {
-			getSupportFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
+	
 	}
 
 	@Override
@@ -105,34 +64,48 @@ public class MainActivity extends ActionBarActivity {
 	
 	public void onNextClicked(View view) {
 		
-	//	Intent intent = new Intent("com.example.firstapp.FINDLOC");
+	
+		CheckBox checkBox = (CheckBox) findViewById(R.id.checkBox1);
+		 if (checkBox.isChecked()) {
+		     obj.SetChkbox1(true);
+		 }
+		 else
+		 {
+			 obj.SetChkbox1(false);
+		 }
+		 checkBox = (CheckBox) findViewById(R.id.checkBox2);
+		 if (checkBox.isChecked()) {
+			 obj.SetChkbox2(true);
+		     
+		 }
+		 else
+		 {
+			 obj.SetChkbox2(false);
+		 }
 		 
-        // 2. put key/value data
-      //  intent.putExtra("message", "Hello From MainActivity");
- 
-        // 3. or you can add data to a bundle
-        //Bundle extras = new Bundle();
-//        extras.putString("status", "Data Received!");
- 
-        // 4. add bundle to intent
-  //      intent.putExtras(extras);
- 
-        // 5. start the activity
-    //    startActivity(intent);
-	/*	System.out.println("...Entered event...");*/
+		 checkBox = (CheckBox) findViewById(R.id.checkBox3);
+		 if (checkBox.isChecked()) {
+			 obj.SetChkbox3(true);
+		 }
+		 else
+		 {
+			 obj.SetChkbox3(false);
+		 }
+		 checkBox = (CheckBox) findViewById(R.id.checkBox4);
+		 if (checkBox.isChecked()) {
+			 obj.SetChkbox4(true);
+		 }
+		 else
+		 {
+			 obj.SetChkbox4(false);
+		 }
 		Intent intent = new Intent(this, FindLoc.class);
-	//	System.out.println("...Hi...");
-	//    EditText editText = (EditText) findViewById(R.id.checkBox2);
-	//    EditText editText1 = (EditText) findViewById(R.id.checkBox3);
-	  //  System.out.println("...Hello...");
-	//    String message = editText.getText().toString();//.concat(editText1.getText().toString());
-	 //   System.out.println("...Hiiii...");
-	//    System.out.println("..."+message+"...");
-	  //  intent.putExtra("mytext", message);
-	 //   System.out.println("...uhuhuHi...");
+
+		Bundle b = new Bundle();
+		b.putSerializable("object",obj);
+		 intent.putExtras(b);
 	    startActivity(intent);
-	  /*  System.out.println("...67bhkhji...");
-	    System.out.println("..."+message+"...");*/
+
 	}
 
 	/**

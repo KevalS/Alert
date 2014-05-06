@@ -52,40 +52,32 @@ GooglePlayServicesClient.OnConnectionFailedListener, LocationListener, OnMyLocat
 	String provider;
 	protected boolean gps_enabled,network_enabled;
 	boolean isLocCheck = true;
+	StoredObject ob;
 	//Location currentLocation;
 	//LocationClient locClient;
 //	@SuppressLint("NewApi")
-	@Override
+	public FindLoc() {
+		// TODO Auto-generated constructor stub
+		ob = new StoredObject();
+	}
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_find_loc);
+		Bundle getBundle = this.getIntent().getExtras();
+		ob = (StoredObject) getBundle.getSerializable("object");
+		//Intent i = getIntent();
+	//	String id = i.getStringExtra("value");
+		String id = ob.getChkbox1()+" "+ob.getChkbox2()+" "+ob.getChkbox3()+" "+ob.getChkbox4();
+		TextView getTxt = (TextView)findViewById(R.id.header);
+		getTxt.setText(id);
 		map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                 .getMap();
-	//	locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-	//	locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-	//	LatLng latLng1=new LatLng(locationManager.,longitude);
-	//	map.moveCamera(CameraUpdateFactory.newLatLng(latLng1));
-		//locClient = new LocationClient(this, this, this);
-		//currentLocation = locClient.getLastLocation();
-	//	LatLng myLoc = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 
-		//LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-	//	locationManager.requestLocationUpdates(
-	//	     LocationManager.NETWORK_PROVIDER, 1000, 1000, this);
-		//LatLng sydney = new LatLng(-33.867, 151.206);
-		//loc = new Location(LOCATION_SERVICE);
         map.setMyLocationEnabled(true);
       //  map.animateCamera(CameraUpdateFactory.zoomTo(15));
         map.setOnMyLocationChangeListener(this);
         map.setOnMarkerClickListener(this);
-     //   map.animateCamera(CameraUpdateFactory.zoomTo(15));
-       
-     /*   map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
 
-        map.addMarker(new MarkerOptions()
-                .title("Sydney")
-                .snippet("I am here!!")
-                .position(sydney));*/
        
 	}
 
