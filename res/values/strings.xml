@@ -16,5 +16,8 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_add_deal_form">AddDealForm</string>
     <string name="title_activity_read_json">ReadJson</string>
+    <string name="logo">AlertMe</string>
+    <string name="jsonoutput">JSON reader</string>
+    <string name="title_activity_single_list_item">SingleListItemActivity</string>
 
 </resources>

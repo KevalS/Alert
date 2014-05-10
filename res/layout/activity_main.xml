@@ -15,6 +15,7 @@
   				android:paddingBottom="5dip">
   				<!-- Logo Start-->
   				<ImageView android:src="@drawable/logo"
+  				    		android:contentDescription="@string/logo"
   							android:layout_width="wrap_content"
   							android:layout_height="wrap_content"
   							android:layout_marginLeft="10dip"/>
@@ -78,6 +79,12 @@
         android:layout_width="155dp"
         android:layout_height="wrap_content"
         android:text="Add Deals" />
+
+    <Button
+        android:id="@+id/readjson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/jsonoutput" />
 
 </LinearLayout>
 

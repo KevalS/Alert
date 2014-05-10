@@ -23,23 +23,15 @@
   				<!-- Logo Ends -->
   		</LinearLayout>
   		<!--  Header Ends -->  
-  		<!-- Footer Start -->
-  		<LinearLayout android:id="@+id/footer"
-  				android:layout_width="fill_parent"
-  				android:layout_height="90dip"
-  				android:background="@layout/footer_repeat"
-  				android:layout_alignParentBottom="true">
-  		</LinearLayout>
-  		<!-- Footer Ends -->
-  		
+
   		<!-- Login Form -->
 		<LinearLayout
-		  xmlns:android="http://schemas.android.com/apk/res/android"
-		  android:orientation="vertical"
 		  android:layout_width="match_parent"
-		  android:layout_height="wrap_content"
-		  android:padding="10dip"
-		  android:layout_below="@id/header">
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:orientation="vertical"
+	    android:padding="10dip"
+		android:layout_below="@id/header">
 		  <!--  Email Label -->
 		  <TextView android:layout_width="fill_parent"
 		  		android:layout_height="wrap_content"

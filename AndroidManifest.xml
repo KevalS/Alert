@@ -14,7 +14,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <!--
              The following two permissions are not required to use
-     		Google Maps Android API v2, but are recommended.
+     		Google Maps Android API v2, but are recommended.
     -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -33,8 +33,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBxB_v-hgcr8Ag9y1PvVZ1SNzsgENQGYHQ
-" />
+            android:value="AIzaSyA9hjuYD8Fgdl26cB8Jw69LBYJW74aenKs" />
 
         <activity
             android:name="com.example.firstapp.MainActivity"
@@ -71,8 +70,17 @@
             android:label="@string/title_activity_add_deal_form" >
         </activity>
         <activity
-            android:name="com.example.firstapp.ReadJson"
+            android:name="com.example.firstapp.ReadJsonActivity"
             android:label="@string/title_activity_read_json" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.firstapp.SingleListItemActivity"
+            android:label="@string/title_activity_single_list_item" >
         </activity>
     </application>
 
