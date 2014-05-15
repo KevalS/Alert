@@ -58,7 +58,7 @@ public class MainActivity extends ActionBarActivity {
 				   @Override
 				   public void onClick(View view) {
 					   Intent intent = new Intent();
-				  	 intent.setClassName("com.example.firstapp", "com.example.firstapp.ReadJsonActivity");
+				  	 intent.setClassName("com.example.firstapp", "com.example.firstapp.PlotMapJsonActivity");
 				  	 startActivity(intent);
 				 
 				         
