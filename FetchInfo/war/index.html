@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<script type="text/javascript">
+function submit1()
+{
+	
+	/*var x1 = document.getElementsByName("movie");
+var x2 = document.getElementsByName("restaurant");
+	var x3 = document.getElementsByName("event");
+	var x4 = document.getElementsByName("shopping");
+	var code= document.getElementsByName("code");
+	var count = 0;
+	if(x1.checked)
+		count+=1;
+	if(x2.checked)
+		count+=2;
+	if(x3.checked)
+		count+=4;
+	if(x4.checked)
+		count+=8;
+	document.getElementsByName("code").value=count;*/
+	alert("hello");
+  //document.fetch.submit();
+}
+</script>
+<body>
+<form name="fetch" method="get" action="GetInfo">
+<table>
+<tr>
+<td>Enter the Lattitude : </td>
+<td><input type="text" name="lat"></td>
+</tr><tr>
+<td>Enter the Longitude : </td>
+<td><input type="text" name="Lon"></td>
+</tr>
+<tr>
+<td><input type="checkbox" name="movie"> Movie</td>
+<td><input type="checkbox" name="restaurant"> Restaurant</td>
+<td><input type="checkbox" name="event"> Event</td>
+<td><input type="checkbox" name="shopping"> Shopping</td>
+<td><input type="hidden" name="code"></td>
+</tr>
+<tr>
+<td><input type="button" onclick="submit1()" value="Submit"></td>
+<td><input type="reset" value="Reset"></td>
+</tr>
+</table>
+</form>
+</body>
+</html>
