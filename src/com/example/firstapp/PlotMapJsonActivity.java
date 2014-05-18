@@ -31,6 +31,7 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -38,48 +39,83 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * @author saxman
+ * @author Kiran Koduru
  */
 @SuppressLint("NewApi") public class PlotMapJsonActivity extends FragmentActivity implements LocationListener, OnMyLocationChangeListener{
     private static final String LOG_TAG = "FirstApp";
-
-    private static final String SERVICE_URL = "http://1-dot-cgajjar14.appspot.com/json";
+    private static final String SERVICE_URL = "http://1-dot-cgajjar14.appspot.com/json?";
     private Location loc;
     protected GoogleMap map;
     private boolean isLocCheck = true;
+    private StoredObject storedObj;
+    private static final String url;
+    
+    public PlotMapJsonActivity(){
+    	storedObj = new StoredObject();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_loc);
-        setUpMapIfNeeded();
+        
+        // get extra for intent
+        Bundle getBundle = this.getIntent().getExtras();
+        storedObj = (StoredObject) getBundle.getSerializable("object");
+        Boolean restaurant = storedObj.getChkbox1();
+        Boolean events = storedObj.getChkbox2();
+        Boolean movies = storedObj.getChkbox3();
+        Boolean shopping = storedObj.getChkbox4();
+        
+        url = createURL(restaurant, events, movies, shopping);
+		
+		setContentView(R.layout.activity_find_loc);
+		setUpMapIfNeeded(url);
+    }
+    
+    public String createURL(Boolean restaurant, Boolean events, Boolean movies, Boolean shopping){
+    	StringBuffer url = new StringBuffer();
+
+    	if(restaurant){
+    		url.append("restaurant=1&");
+    	}
+    	if(events){
+    		url.append("events=1&");
+    	}
+    	if(movies){
+    		url.append("movies=1&");
+    	}
+    	if(shopping){
+    		url.append("shopping=1");
+    	}
+    	
+    	return SERVICE_URL + url;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setUpMapIfNeeded();
+        setUpMapIfNeeded(url);
     }
 
-    private void setUpMapIfNeeded() {
+    private void setUpMapIfNeeded(String url) {
         if (map == null) {
             map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
             map.setMyLocationEnabled(true);
             map.setOnMyLocationChangeListener(this);
             if (map != null) {
-                setUpMap();
+                setUpMap(url);
             }
         }
     }
 
-    private void setUpMap() {
+    private void setUpMap(String url) {
         // Retrieve the city data from the web service
         // In a worker thread since it's a network operation.
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    retrieveAndAddMarkers();
+                    retrieveAndAddMarkers(url);
                 } catch (IOException e) {
                     Log.e(LOG_TAG, "Cannot retrive cities", e);
                     return;
@@ -88,12 +124,12 @@ import java.net.URL;
         }).start();
     }
     
-    protected void retrieveAndAddMarkers() throws IOException {
+    protected void retrieveAndAddMarkers(String createdURL) throws IOException {
         HttpURLConnection conn = null;
         final StringBuilder json = new StringBuilder();
         try {
             // Connect to the web service
-            URL url = new URL(SERVICE_URL);
+            URL url = new URL(createdURL);
             conn = (HttpURLConnection) url.openConnection();
             InputStreamReader in = new InputStreamReader(conn.getInputStream());
 
@@ -131,7 +167,7 @@ import java.net.URL;
         for (int i = 0; i < jsonArray.length(); i++) {
             // Create a marker for each city in the JSON data.
             JSONObject jsonObj = jsonArray.getJSONObject(i);
-            System.out.println(jsonObj);
+            
             map.addMarker(new MarkerOptions()
                 .title(jsonObj.getString("TheatreName"))
                 .snippet(jsonObj.getString("PhoneNumber"))
