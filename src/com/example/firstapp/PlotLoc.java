@@ -1,53 +1,78 @@
 package com.example.firstapp;
 
 import com.example.firstapp.R;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v4.app.Fragment;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.os.Build;
+
 public class PlotLoc extends android.support.v4.app.FragmentActivity {
 	
 	GoogleMap map;
+	StoredObject ob;
+	TextView myLocationText;
+	public PlotLoc() {
+		// TODO Auto-generated constructor stub
+		ob = new StoredObject();
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		
+	
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_plot_loc);
+		Bundle getBundle = this.getIntent().getExtras();
+		ob = (StoredObject) getBundle.getSerializable("object");
+		TextView head = (TextView)findViewById(R.id.header);
+	//	head.setText(ob.getDealLat()+","+ob.getDealLong());
 		map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                 .getMap();
-		LatLng sydney = new LatLng(-33.867, 151.206);
+		LatLng sydney = new LatLng(ob.getDealLat(), ob.getDealLong());
 		
 		map.animateCamera(CameraUpdateFactory.zoomTo(15));
 	    map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
 	    
 	    MarkerOptions options = new MarkerOptions();
-    	options.title("Some marker");
-    	options.snippet("The deal has been added!");
+    	options.title(ob.getDealLocName());
+    	options.snippet(ob.getDealDetail());
     	options.position(sydney);
     	Marker marker = map.addMarker(options);
-    	
+    	head.setText(ob.getDealLat()+","+ob.getDealLong()+"..Addr: "+ob.getDealLocAddr());
     	map.setInfoWindowAdapter(new InfoWindowAdapter(){
 
 			@Override
 			public View getInfoContents(Marker marker) {
 				View v = getLayoutInflater().inflate(R.layout.info_window_layout, null);
 				TextView title = (TextView) v.findViewById(R.id.title);
+			//	TextView deal = (TextView) v.findViewById(R.id.titledesc);
 				TextView link = (TextView) v.findViewById(R.id.link);
 				title.setText(marker.getTitle());
+			//	deal.setText(ob.getDealDetail());
 				link.setText(Html.fromHtml("<a href=\"http://www.google.com\">Click Here</a>"));
 				link.setMovementMethod(LinkMovementMethod.getInstance());
 				return v;
@@ -60,7 +85,16 @@ public class PlotLoc extends android.support.v4.app.FragmentActivity {
     		
     	});
 	}
-
+	public void onConfirmClicked(View view) {
+		//write insert query for insertion of new deal
+		 Intent intent = new Intent();//getApplicationContext(), PlotLoc.class);
+	  	 intent.setClassName("com.example.firstapp", "com.example.firstapp.SplashActivity");
+	  	Bundle b = new Bundle();
+		b.putSerializable("object",ob);
+		 intent.putExtras(b);
+	    startActivity(intent);
+		
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

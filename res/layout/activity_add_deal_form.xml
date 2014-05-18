@@ -6,7 +6,7 @@
   android:fillViewport="true">
   <RelativeLayout 
   		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content" android:background="#ffffff">
+  		android:layout_height="wrap_content" android:background="#A9C6EC">
   		
   		<!--  Header  Starts-->
   		<LinearLayout android:id="@+id/header"
@@ -26,7 +26,10 @@
   				<!-- Logo Ends -->
   		</LinearLayout>
   		<!--  Header Ends -->  
-
+  		<!-- Footer Start -->
+  		
+  		<!-- Footer Ends -->
+  		
   		<!-- Login Form -->
 		<LinearLayout
 		  android:orientation="vertical"
@@ -34,7 +37,6 @@
 		  android:layout_height="wrap_content"
 		  android:padding="10dip"
 		  android:layout_below="@id/header">
-
 		  <!--  Email Label -->
 
 			<TextView
@@ -50,51 +52,64 @@
 			    android:text="Location Name:"
 			    android:textColor="#372c24" />
 
-		  <EditText android:layout_width="fill_parent"
+		  <EditText 
+		      android:id="@+id/locTxt"
+		      android:layout_width="fill_parent"
 		  		android:layout_height="wrap_content"
 		  		android:layout_marginTop="5dip"
 		  		android:layout_marginBottom="20dip"
 		  		android:singleLine="true"/>
 		  <!--  Password Label -->
 
+		  <CheckBox
+        android:id="@+id/currchkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Use Current Location"
+        android:onClick="onCurrLocChkboxClicked"/>
+
 		  <TextView
+		      
 		      android:layout_width="fill_parent"
 		      android:layout_height="wrap_content"
-		      android:text="Address 1:"
+		      android:text="Address :"
 		      android:textColor="#372c24" />
 
-		  <EditText android:layout_width="fill_parent"
+		  <EditText 
+		      android:id="@+id/addrTxt1"
+		      android:layout_width="fill_parent"
 		  		android:layout_height="wrap_content"
 		  		android:layout_marginTop="5dip"
-		  		android:singleLine="true"
-		  		android:password="true"/>
+		  		android:singleLine="true"/>
 
 		  <TextView
+		      
 		      android:layout_width="fill_parent"
 		      android:layout_height="wrap_content"
-		      android:text="Address 2:"
+		      android:text="State :"
 		      android:textColor="#372c24" />
 
 		  <EditText
-		      android:layout_width="fill_parent"
+		      android:id="@+id/stateTxt2"
+		      android:layout_width="88dp"
 		      android:layout_height="wrap_content"
 		      android:layout_marginTop="5dip"
 		      android:ems="10"
-		      android:password="true"
 		      android:singleLine="true" />
 
 		  <TextView
+		      
 		      android:layout_width="fill_parent"
 		      android:layout_height="wrap_content"
 		      android:text="Zip Code:"
 		      android:textColor="#372c24" />
 
 		  <EditText
+		      android:id="@+id/zipTxt"
 		      android:layout_width="fill_parent"
 		      android:layout_height="wrap_content"
 		      android:layout_marginTop="5dip"
 		      android:ems="10"
-		      android:password="true"
 		      android:singleLine="true" />
 
 		  <TextView
@@ -104,6 +119,7 @@
 		      android:textColor="#372c24" />
 
 		  <EditText
+		      android:id="@+id/dealTxt"
 		      android:layout_width="fill_parent"
 		      android:layout_height="wrap_content"
 		      android:layout_marginBottom="20dip"

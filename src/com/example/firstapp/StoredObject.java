@@ -8,17 +8,32 @@ public class StoredObject implements Serializable{
 	private String email;
 	private String pswd;
 	private String name;
+	private String address;
+	private String authLink;
+	private String plotDealLocName;
+	private String plotDealLocAddr;
+	private String plotDealDesc;
 	private boolean chkbox1 = false;
 	private boolean chkbox2= false;
 	private boolean chkbox3= false;
 	private boolean chkbox4= false;
+	double plotDealLat;
+	double plotDealLong;
 	public void SetEmail(String email)
 	{
 		this.email = email;
 	}
+	public void SetAddress(String addr)
+	{
+		this.address = addr;
+	}
 	public void SetPswd(String pswd)
 	{
 		this.pswd = pswd;
+	}
+	public void SetAuthLink(String auth)
+	{
+		this.authLink = auth;
 	}
 	public void SetName(String name)
 	{
@@ -40,6 +55,26 @@ public class StoredObject implements Serializable{
 	{
 		this.chkbox4 = ischeck;
 	}
+	public void SetPlotDealLocName(String locname)
+	{
+		this.plotDealLocName = locname;
+	}
+	public void SetPlotDealLocAddr(String locaddr)
+	{
+		this.plotDealLocAddr = locaddr;
+	}
+	public void SetPlotDealDetail(String deal)
+	{
+		this.plotDealDesc = deal;
+	}
+	public void SetPlotDealLat(double lat)
+	{
+		this.plotDealLat = lat;
+	}
+	public void SetPlotDealLong(double longitude)
+	{
+		this.plotDealLong = longitude;
+	}
 	public String getEmail()
 	{
 		return email;
@@ -51,6 +86,14 @@ public class StoredObject implements Serializable{
 	public String getName()
 	{
 		return name;
+	}
+	public String getAddress()
+	{
+		return address;
+	}
+	public String getAuthLink()
+	{
+		return authLink;
 	}
 	public boolean getChkbox1()
 	{
@@ -67,6 +110,26 @@ public class StoredObject implements Serializable{
 	public boolean getChkbox4()
 	{
 		return chkbox4;
+	}
+	public double getDealLat()
+	{
+		return plotDealLat;
+	}
+	public double getDealLong()
+	{
+		return plotDealLong;
+	}
+	public String getDealLocName()
+	{
+		return plotDealLocName;
+	}
+	public String getDealLocAddr()
+	{
+		return plotDealLocAddr;
+	}
+	public String getDealDetail()
+	{
+		return plotDealDesc;
 	}
 	
 	public static void main(String[] args) {

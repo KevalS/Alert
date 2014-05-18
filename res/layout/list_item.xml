@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:text="@string/mobile"
+        android:text="mobile "
         android:textColor="#5d5d5d"
         android:textStyle="bold" />
  

@@ -43,26 +43,28 @@ public class MainActivity extends ActionBarActivity {
         final Button btnOpenPopup = (Button)findViewById(R.id.openpopup);
         btnOpenPopup.setOnClickListener(new Button.OnClickListener(){
 
-				   @Override
-				   public void onClick(View arg0) {
-					   Intent intent = new Intent();//getApplicationContext(), PlotLoc.class);
-				  	 intent.setClassName("com.example.firstapp", "com.example.firstapp.LoginActivity");
-				  	 startActivity(intent);
-				 
-				         
-		}});
-        
-        final Button btnJSONRead = (Button)findViewById(R.id.readjson);
+   @Override
+   public void onClick(View arg0) {
+	   Intent intent = new Intent();//getApplicationContext(), PlotLoc.class);
+  	 intent.setClassName("com.example.firstapp", "com.example.firstapp.SplashActivity");
+  	Bundle b = new Bundle();
+	b.putSerializable("object",obj);
+	 intent.putExtras(b);
+    startActivity(intent);
+  	// startActivity(intent);
+ 
+         
+   }});
+	
+   final Button btnJSONRead = (Button)findViewById(R.id.readjson);
         btnJSONRead.setOnClickListener(new Button.OnClickListener(){
-
-				   @Override
-				   public void onClick(View view) {
-					   Intent intent = new Intent();
-				  	 intent.setClassName("com.example.firstapp", "com.example.firstapp.PlotMapJsonActivity");
-				  	 startActivity(intent);
-				 
-				         
-		}});
+	   @Override
+	   public void onClick(View view) {
+	   Intent intent = new Intent();
+  	 intent.setClassName("com.example.firstapp", "com.example.firstapp.ReadJsonActivity");
+     	 startActivity(intent);
+       
+  	}});
 	}
 
 	@Override

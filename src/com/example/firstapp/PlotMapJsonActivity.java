@@ -48,7 +48,7 @@ import java.net.URL;
     protected GoogleMap map;
     private boolean isLocCheck = true;
     private StoredObject storedObj;
-    private static final String url;
+    private static String url;
     
     public PlotMapJsonActivity(){
     	storedObj = new StoredObject();
@@ -62,24 +62,24 @@ import java.net.URL;
         Bundle getBundle = this.getIntent().getExtras();
         storedObj = (StoredObject) getBundle.getSerializable("object");
         Boolean restaurant = storedObj.getChkbox1();
-        Boolean events = storedObj.getChkbox2();
+        Boolean carrental = storedObj.getChkbox2();
         Boolean movies = storedObj.getChkbox3();
         Boolean shopping = storedObj.getChkbox4();
         
-        url = createURL(restaurant, events, movies, shopping);
+        url = createURL(restaurant, carrental, movies, shopping);
 		
 		setContentView(R.layout.activity_find_loc);
 		setUpMapIfNeeded(url);
     }
     
-    public String createURL(Boolean restaurant, Boolean events, Boolean movies, Boolean shopping){
+    public String createURL(Boolean restaurant, Boolean carrental, Boolean movies, Boolean shopping){
     	StringBuffer url = new StringBuffer();
 
     	if(restaurant){
     		url.append("restaurant=1&");
     	}
-    	if(events){
-    		url.append("events=1&");
+    	if(carrental){
+    		url.append("car=1&");
     	}
     	if(movies){
     		url.append("movies=1&");
@@ -109,7 +109,7 @@ import java.net.URL;
         }
     }
 
-    private void setUpMap(String url) {
+    private void setUpMap(final String url) {
         // Retrieve the city data from the web service
         // In a worker thread since it's a network operation.
         new Thread(new Runnable() {
